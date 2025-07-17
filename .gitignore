@@ -205,3 +205,32 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.aps
+*.bsc
+*.ilk
+*.lib
+*.map
+*.obj
+*.pdb
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.log
+*.vspscc
+.vssscc
+.vsscc
+.builds
+*.pidb
+*.log
+*.scc
+
+# Visual Studio Code
+.vscode/

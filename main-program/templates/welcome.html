@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Amazon Price Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #212B5E;
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl bg-[#212B5E] rounded-xl p-8 md:p-12 shadow-lg flex flex-col items-center justify-center min-h-[600px] md:min-h-[700px]">
+        <h1 class="text-4xl md:text-5xl font-bold mb-8 text-center">Amazon Price Tracker</h1>
+
+        <form action="{{ url_for('login') }}" method="post" class="w-full max-w-md flex flex-col items-center space-y-4">
+            <div class="w-full">
+                <label for="username" class="block text-lg font-medium mb-2">USERNAME</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       class="w-full p-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white"
+                       placeholder="" />
+            </div>
+            <div class="w-full">
+                <label for="password" class="block text-lg font-medium mb-2">PASSWORD</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       class="w-full p-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white"
+                       placeholder="" />
+            </div>
+            <a href="#" class="text-blue-300 hover:underline text-lg">New User? Create Account</a>
+            <button type="submit"
+                    class="mt-6 w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                Login
+            </button>
+        </form>
+
+        <p class="absolute bottom-8 right-8 text-lg text-right max-w-xs md:max-w-sm">
+            Easily track desired Amazon product prices and receive alerts for price drops, helping you make smart purchasing decisions.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracked Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #212B5E;
+            color: white;
+        }
+
+        /* Tooltip style for hover effect */
+        .tooltip {
+            visibility: hidden;
+            width: 250px; /* Adjust width as needed */
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the element */
+            left: 50%;
+            margin-left: -125px; /* Half the width */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+            .tooltip::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #333 transparent transparent transparent;
+            }
+
+        .product-title-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl bg-[#212B5E] rounded-xl p-8 md:p-12 shadow-lg flex flex-col items-center min-h-[600px] md:min-h-[700px]">
+        <!-- Home Button -->
+        <a href="{{ url_for('home') }}"
+           class="absolute top-6 left-6 py-2 px-4 bg-blue-400 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out">
+            HOME
+        </a>
+
+        <h1 class="text-4xl md:text-5xl font-bold mb-12 text-center">Tracked Products</h1>
+
+        {% if products|length == 0 %}
+        <p class="text-xl text-gray-300">No products tracked yet. Add some!</p>
+        {% else %}
+        <div class="w-full max-w-3xl bg-white bg-opacity-10 rounded-lg p-6 shadow-inner">
+            <div class="grid grid-cols-4 md:grid-cols-5 gap-4 pb-4 border-b border-gray-600 text-lg font-semibold">
+                <div class="col-span-2 md:col-span-1">Product Title</div>
+                <div>Current Price</div>
+                <div>Target Price</div>
+                <div class="col-span-2 md:col-span-1 text-center">Actions</div>
+            </div>
+            {% for product in products %}
+            <div class="grid grid-cols-4 md:grid-cols-5 gap-4 py-4 border-b border-gray-700 items-center">
+                <div class="col-span-2 md:col-span-1 text-lg font-medium relative product-title-container">
+                    {{ product.title }}
+                    <span class="tooltip">{{ product.url }}</span>
+                </div>
+                <div class="text-lg">{{ product.currentPrice }}</div>
+                <div class="text-lg">{{ product.targetPrice }}</div>
+                <div class="col-span-2 md:col-span-1 flex space-x-2 justify-center">
+                    <button onclick="alert('Editing target price for {{ product.title }}')"
+                            class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm transition duration-300 ease-in-out transform hover:scale-105">
+                        EDIT
+                    </button>
+                    <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" onsubmit="return confirm('Are you sure to delete this product?');" class="inline-block">
+                        <button type="submit"
+                                class="py-2 px-4 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm transition duration-300 ease-in-out transform hover:scale-105">
+                            DELETE
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
